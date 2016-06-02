@@ -1,17 +1,18 @@
-require("reshape2")
-require("ggplot2")
+require2("reshape2")
+require2("ggplot2")
 
 mydtm<-DocumentTermMatrix(mycorpus)
 Terms(mydtm)[1:50]
+dimnames(mydtm)$Docs<-paste("S", 1:nDocs(mydtm),"_D1004", sep="")
 
 # See part of the document-by-term matrix
-inspect(mydtm[3:10,90:120])
+inspect(mydtm[1:10,90:120])
 inspect(mydtm[3,])
 
 #Convert to ordinary matrix
 mydtm_mat<-as.data.frame.matrix(mydtm)
 
-# remove rows consistin entirely of 0s
+# remove rows consisting entirely of 0s
 mydtm_mat<-mydtm_mat[rowSums(mydtm_mat)!=0,]
 
 # Display words with frequencies over 3

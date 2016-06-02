@@ -3,7 +3,7 @@ require2("NLP")
 
 if("openNLPmodels.de" %in% rownames(installed.packages()) == FALSE) {install.packages("openNLPmodels.de", repos = "http://datacube.wu.ac.at/", type = "source" )}
 
-require2("openNLPmodels.de")
+library("openNLPmodels.de")
 
 sent_token_annotator<-Maxent_Sent_Token_Annotator(language="de")
 word_token_annotator<-Maxent_Word_Token_Annotator(language="de")
