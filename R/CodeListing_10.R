@@ -9,6 +9,7 @@ names(projdoc_df)<-paste("LSAdim",1:ncol(projdoc_df), sep="_")
 projdoc_df$taskOrNot<-labels[as.numeric(rownames(projdoc_df))]
 projdoc_df$taskOrNot<-as.factor(projdoc_df$taskOrNot)
 mydtm_matwithLabels$taskOrNot<-as.factor(mydtm_matwithLabels$taskOrNot)
+
 fold10by10<-createMultiFolds(projdoc_df$taskOrNot,k=10, times=10)
 fold10by10orig<-createMultiFolds(mydtm_matwithLabels$taskOrNot, k=10, times=10)
 
@@ -24,7 +25,8 @@ ptm <- proc.time()
 for(i in fold10by10){
   train<-projdoc_df[i,]
   last<-ncol(train)
-  zerocol<-which(colSums(train[,-ncol(train)])>0)
+  zerocol<-which(colSums(train[,-ncol(train)])!=0)
+  #train<-train[,c(zerocol, last)]
   train<-train[,c(zerocol, last)]
   #train$taskOrNot<-projdoc_df$taskOrNot
   test<-projdoc_df[-i,]
