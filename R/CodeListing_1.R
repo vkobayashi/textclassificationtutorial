@@ -6,10 +6,10 @@
 ### The extracted text is written to a .txt file which is stored in the computer. ###
 #####################################################################################
 
-# This command accomplishes two things. 
+# This function accomplishes two things. 
 # (1) If a package is already installed then it loads the package.
 # (2) If a package is not installed then it will first
-# install the package and then loads it.
+# install the package and then loads it. Can be run once.
 require2<-function(pakgName){
   if(pakgName %in% rownames(installed.packages()) == FALSE) {install.packages(pakgName)}
   library(pakgName, character.only=TRUE)}
@@ -18,7 +18,7 @@ require2<-function(pakgName){
 require2("XML")
 
 # Checks if the file "sample_nursing_vacancy.txt" is present in the current working
-# directory. If it is present it deletes it, if not then
+# directory. If it is present it deletes it, otherwise
 # it does nothing.
 if(file.exists("sample_nursing_vacancy.txt")) file.remove("sample_nursing_vacancy.txt")
 
@@ -86,3 +86,4 @@ writeLines(jobdescription,"./parsed/sample_nursing_vacancy.txt", sep="\n")
 # Now go to the folder "parsed" in your current working directory,
 # there should be a file named "sample_nursing_vacancy.txt" containing the
 # extracted content from the html file.
+

@@ -17,7 +17,7 @@ require2("NLP")
 if("openNLPmodels.de" %in% rownames(installed.packages()) == FALSE) {install.packages("openNLPmodels.de", repos = "http://datacube.wu.ac.at/", type = "source" )}
 library("openNLPmodels.de")
 
-# Appy sentence segmentation
+# Appy sentence segmentation using functions from openNLP
 sent_token_annotator<-Maxent_Sent_Token_Annotator(language="de")
 word_token_annotator<-Maxent_Word_Token_Annotator(language="de")
 pos_tag_annotator<-Maxent_POS_Tag_Annotator(language="de")
@@ -71,7 +71,6 @@ tryCatch({
 # bad formating. Apply sentence segmentation to the text in sample_nursing_vacancy.txt
 sentence<-unlist(sapply(sentence, gsub,pattern="Â[[:space:]]?",replacement="", simplify=TRUE, USE.NAMES=FALSE))
 sentence<-unlist(sapply(sentence, gsub,pattern="[[:cntrl:]]",replacement="", simplify=TRUE, USE.NAMES=FALSE))
-#sentence<-unlist(sapply(sentence, sent_split,pattern="\\.[:space:]+[A-Z]", simplify=TRUE, USE.NAMES=FALSE))
 sentence<-unlist(sapply(sentence, sent_split,pattern="\\|", simplify=TRUE, USE.NAMES=FALSE))
 sentence<-unlist(sapply(sentence, sent_tokens, simplify=TRUE, USE.NAMES=FALSE))
 sentence<-sentence[nchar(sentence)!=0]
@@ -101,10 +100,8 @@ sentence_segmentor<-function(folder="", writeFolder="", writeFile=""){
   
   # Additional ways to detect sentences. Some sentences may not be properly identified due to
   # bad formating. Apply sentence segmentation to the text in sample_nursing_vacancy.txt
-  #print(sentence)
   sentence<-unlist(sapply(sentence, gsub,pattern="Â[[:space:]]?",replacement="", simplify=TRUE, USE.NAMES=FALSE))
   sentence<-unlist(sapply(sentence, gsub,pattern="[[:cntrl:]]",replacement="", simplify=TRUE, USE.NAMES=FALSE))
-  #sentence<-unlist(sapply(sentence, sent_split,pattern="\\.[:space:]+[A-Z]", simplify=TRUE, USE.NAMES=FALSE))
   sentence<-unlist(sapply(sentence, sent_split,pattern="\\|", simplify=TRUE, USE.NAMES=FALSE))
   sentence<-unlist(sapply(sentence, sent_tokens, simplify=TRUE, USE.NAMES=FALSE))
   sentence<-sentence[nchar(sentence)!=0]

@@ -41,15 +41,15 @@ mydtm_mat<-as.data.frame.matrix(mydtm)
 dim(mydtm_mat) # should display 425 1079
 
 
-task_indx=c(6,30,31,32,33,34,35,70,71,104,105,149,150,151,185,186,187,216,217,218,
-            219,244,245,246,247,248,331,332,333,393,394)
-all_indx= 1:425
-nontask_indx= all_indx[-task_indx]
-set.seed(123)
-selectednontask<-sample(nontask_indx, size=360,replace=FALSE)
-training_indx<-c(task_indx,selectednontask )
+#task_indx=c(6,30,31,32,33,34,35,70,71,104,105,149,150,151,185,186,187,216,217,218,
+#            219,244,245,246,247,248,331,332,333,393,394)
+#all_indx= 1:425
+#nontask_indx= all_indx[-task_indx]
+#set.seed(123)
+#selectednontask<-sample(nontask_indx, size=360,replace=FALSE)
+#training_indx<-c(task_indx,selectednontask )
 
-mydtm_mat<-mydtm_mat[training_indx,]
+#mydtm_mat<-mydtm_mat[training_indx,]
 mydtm_mat<-mydtm_mat[rowSums(mydtm_mat)>0,]
 mydtm_mat<-mydtm_mat[,colSums(mydtm_mat)>0]
 dim(mydtm_mat) # should dispaly 422 1079

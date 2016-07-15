@@ -48,8 +48,8 @@ barplot <- ggplot(data=melted_01,aes(x=Var1, y=value, fill=grp_var)) +
 barplot+theme(axis.text.x=element_blank(),axis.ticks=element_blank(),legend.title=element_blank(), legend.text = element_text(size=15)) + 
   geom_text(aes(label=Var1, y=0), size=5, angle=90)+ylab("Term coefficients")+xlab("")
 
-plsa<-qplot(x=Var1, y=Var2, data=melt(cor(t(mydtm_mat))), geom="tile",fill=value)
-plsa + scale_fill_gradient(low = "white",high = "steelblue")
+#plsa<-qplot(x=Var1, y=Var2, data=melt(cor(t(mydtm_mat))), geom="tile",fill=value)
+#plsa + scale_fill_gradient(low = "white",high = "steelblue")
 
-plsa2<-qplot(x=Var1, y=Var2, data=melt(cor(t(projdoc))), geom="tile",fill=value)
-plsa2 + scale_fill_gradient(low = "white",high = "steelblue")
+#plsa2<-qplot(x=Var1, y=Var2, data=melt(cor(t(projdoc))), geom="tile",fill=value)
+#plsa2 + scale_fill_gradient(low = "white",high = "steelblue")

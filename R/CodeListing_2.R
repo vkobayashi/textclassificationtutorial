@@ -32,12 +32,14 @@ htmlfileparser<-function(folder="", writefolder=""){
     htmlfile<-gsub("</?[Pp]>","\n", htmlfile)
     htmlfile<-gsub("</?[Uu][Ll]>","\n", htmlfile)
     rawpagehtml<-htmlTreeParse(htmlfile, useInternalNodes=TRUE, encoding="UTF-8", asText=TRUE)
-    
     jobdescription<-xpathSApply(rawpagehtml,"//body",xmlValue)
     jobdescription<-gsub("[\r]?[\n][[:space:]]+","\n",jobdescription)
     foldertoWrite=paste("./",writefolder,"/", sep="")
     writeLines(jobdescription,paste(foldertoWrite,str_extract(i,".+[\\.]"),"txt", sep=""))
   }
 }
+
+# Apply the function and providing values for the arguments. Here the html files are in
+# vacancypages folder and we write the output to parsedvacancies folder.
 
 htmlfileparser(folder="vacancypages", writefolder="parsedvacancies")
