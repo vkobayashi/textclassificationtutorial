@@ -30,14 +30,11 @@ fileName<-file.path(".","data","sample_nursing_vacancy.html")
 # Read all the content of the file in "sample_nursing_vacancy.html"
 # and assigned it to a variable. Here the variable is named
 # htmlfile.
-htmlfile<-readChar(fileName, file.info(fileName)$size)
+htmlfile<-readChar(con=fileName, nchars=file.info(fileName)$size, useBytes=TRUE)
 
 # Tip: Check whether the content has been properly read.
 cat(htmlfile)
-
-# Display the number of characters in htmlfile.
-# You should get 10749
-nchar(htmlfile)
+# The display should end with "</body></html>".
 
 ## Start processing the content of the HTML file.
 
