@@ -6,6 +6,9 @@
 ### The extracted text is written to a .txt file which is stored in the computer. ###
 #####################################################################################
 
+# Set option for display warning
+options(warn=-1)
+
 # This function accomplishes two things. 
 # (1) If a package is already installed then it loads the package.
 # (2) If a package is not installed then it will first

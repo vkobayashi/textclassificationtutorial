@@ -17,7 +17,7 @@ projdoc_df$taskOrNot<-labels[as.numeric(rownames(projdoc_df))]
 projdoc_df$taskOrNot<-factor(projdoc_df$taskOrNot, levels=c(0,1), labels=c("nontask","task"))
 mydtm_matwithLabels$taskOrNot<-as.factor(mydtm_matwithLabels$taskOrNot)
 
-# Prepare the data fror validation (10 times 10 fold cross-validation)
+# Prepare the data for validation (10 times 10 fold cross-validation)
 fold10by10<-createMultiFolds(projdoc_df$taskOrNot,k=10, times=10)
 fold10by10orig<-createMultiFolds(mydtm_matwithLabels$taskOrNot, k=10, times=10)
 
@@ -31,7 +31,7 @@ Fmeasure_lsa<-matrix(0, nrow=100, ncol=3)
 baccu_lsa<-matrix(0, nrow=100, ncol=3)
 j=1
 
-# Run classification on the LSA reduced feature set
+# Run classification using the LSA reduced feature set
 ptm <- proc.time()
 for(i in fold10by10){
   train<-projdoc_df[i,]
