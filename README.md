@@ -4,5 +4,5 @@
 INSTRUCTIONS:
 
 * Clone this repository or download as a zip file
-* Open the text_classification_tutorial.Rproj
+* Open the `text_classification_tutorial.Rproj`
 * Run the R codes in folder R
