@@ -35,7 +35,7 @@ dim(mydtm_mat) # should display 425 1079
 
 mydtm_mat<-mydtm_mat[rowSums(mydtm_mat)>0,]
 mydtm_mat<-mydtm_mat[,colSums(mydtm_mat)>0]
-dim(mydtm_mat) # should dispaly 422 1079
+dim(mydtm_mat) # should display 422 1079
 
 # Perform LSA
 
