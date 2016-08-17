@@ -3,7 +3,7 @@
 
 Software requirements:
 
-1. [R] software (https://cran.rstudio.com/)
+1. [R](https://cran.rstudio.com/) software
 2. [RStudio](https://www.rstudio.com/products/rstudio/download2/)
 
 INSTRUCTIONS:
