@@ -2,7 +2,7 @@
 ### Latent Semantic Analysis (LSA).                                      ###
 ######################################                                   ###
 ### Description:                                                         ###
-### This R script contains commands than runs latent semantic analysis.  ###
+### This R script contains commands than run latent semantic analysis.   ###
 ### LSA is useful for detecting words having similar senses.             ###
 ############################################################################
 
@@ -21,7 +21,7 @@ mycorpus<-VCorpus(VectorSource(mysentences[,2]))
 # Apply transformation from CodeListing_4.R
 mycorpus<-transformCorpus(mycorpus)
 
-# For the transformation create the Document by Term Matrix
+# For the transformation create the Document-by-Term Matrix
 mydtm<-DocumentTermMatrix(mycorpus, control = list(removePunctuation=TRUE, removeNumbers=TRUE,stopwords=stopwords("de")))
 Terms(mydtm)[1:50]
 

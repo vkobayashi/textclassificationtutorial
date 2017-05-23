@@ -1,21 +1,24 @@
-##############################
-### Classification
-##############################
+############################################################################
+### Classification                                                       ###
+######################################                                   ###
+### Description:                                                         ###
+### This R script contains commands that build and evaluate classifiers. ###
+############################################################################
 
 # Load the needed libraries
-require2("e1071")
-require2("caret")
-require2("randomForest")
-require2("beepr")
+require2("e1071") # naive bayes
+require2("caret") # for creating folds
+require2("randomForest") # random forest classification technique
+require2("beepr") # useful for signaling
 require2("DMwR")
 
 # Prepare the data
 set.seed(300) # set seed for reproducibility
-projdoc_df<-as.data.frame(projdoc)
-names(projdoc_df)<-paste("LSAdim",1:ncol(projdoc_df), sep="_")
-projdoc_df$taskOrNot<-labels[as.numeric(rownames(projdoc_df))]
-projdoc_df$taskOrNot<-factor(projdoc_df$taskOrNot, levels=c(0,1), labels=c("nontask","task"))
-mydtm_matwithLabels$taskOrNot<-as.factor(mydtm_matwithLabels$taskOrNot)
+projdoc_df <- as.data.frame(projdoc)
+names(projdoc_df) <- paste("LSAdim",1:ncol(projdoc_df), sep="_")
+projdoc_df$taskOrNot <- labels[as.numeric(rownames(projdoc_df))]
+projdoc_df$taskOrNot <- factor(projdoc_df$taskOrNot, levels=c(0,1), labels=c("nontask","task"))
+mydtm_matwithLabels$taskOrNot <- as.factor(mydtm_matwithLabels$taskOrNot)
 
 # Prepare the data for validation (10 times 10 fold cross-validation)
 fold10by10<-createMultiFolds(projdoc_df$taskOrNot,k=10, times=10)
@@ -26,7 +29,7 @@ fmeasurefxn<-function(x,y){
   return(2*((x*y)/(x+y)))
 }
 
-# Matrices where one will save the result.
+# Matrices where the results will be saved.
 Fmeasure_lsa<-matrix(0, nrow=100, ncol=3)
 baccu_lsa<-matrix(0, nrow=100, ncol=3)
 j=1
@@ -66,7 +69,7 @@ results_lsa[1,]<-apply(Fmeasure_lsa,2,mean, na.rm=TRUE)
 results_lsa[2,]<-apply(baccu_lsa,2,mean)
 print(results_lsa)
 
-#baccu_orig<-matrix(0, nrow=100, ncol=3)
+# Matrices where the results will be saved.
 Fmeasure_orig<-matrix(0, nrow=100, ncol=3)
 baccu_orig<-matrix(0, nrow=100, ncol=3)
 
@@ -105,7 +108,7 @@ results_orig[2,]<-apply(baccu_orig,2,mean)
 print(results_orig)
 
 
-# Visualize the results
+# Visualize the results for Balanced Accuracy
 baccu_combine<-rbind(baccu_lsa,baccu_orig)
 baccu_combine<-cbind(baccu_combine,rep(c("LSA","Original"),each=100))
 colnames(baccu_combine)<-c("SVM","Naive Bayes","Random Forest","FS")
@@ -116,6 +119,7 @@ bamelt$value<-as.numeric(bamelt$value)
 g<-ggplot(bamelt, aes(y=value, x=variable ))
 g + geom_boxplot(aes(color=FS)) +facet_wrap(~FS)+xlab("Classifier") + ylab("Balanced Accuracy")
 
+# Visualize the results for F-measure
 f_combine<-rbind(Fmeasure_lsa,Fmeasure_orig)
 f_combine<-cbind(f_combine,rep(c("LSA","Original"),each=100))
 colnames(f_combine)<-c("SVM","Naive Bayes","Random Forest","FS")

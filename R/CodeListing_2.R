@@ -3,8 +3,8 @@
 ######################################                                   ###
 ### Description:                                                         ###
 ### This R script contains commands that extract the relevant text from  ###
-### more than one HTML files. The extracted contents are written to .txt ###
-### files (one for each html file) and stored in the computer.           ###
+### more than one HTML file. The extracted contents are written to .txt  ###
+### files (one for each html file) that are stored in the computer.      ###
 ############################################################################
 
 # Loads the package stringr
@@ -12,14 +12,14 @@ require2("stringr")
 
 # The function loads a bunch of html files from a folder and
 # applies the preprocessing procedures in CodeListing_1.R to each
-# file. The extracted contents are writtent to text files and
+# file. The extracted contents are writtent to text files that are
 # stored in the folder "parsedvacancies" in the current working
 # directory. One text file is written for each html file.
 
 htmlfileparser<-function(folder="", writefolder=""){
   dir<-file.path(".",folder)    # computer path to the folder containing the html files
   vacancyfiles<-list.files(dir) # list the files in the folder where the html files are stored
-  vacancyfiles<-vacancyfiles[grepl("*.html", vacancyfiles)] # choose only the files with.html extension
+  vacancyfiles<-vacancyfiles[grepl("*.html", vacancyfiles)] # choose only the files with .html extension
   if(dir.exists(writefolder)) {unlink(writefolder, recursive=TRUE)}
   dir.create(writefolder) # create a folder called parsedvacancies where the extracted text are stored
   
@@ -39,7 +39,7 @@ htmlfileparser<-function(folder="", writefolder=""){
   }
 }
 
-# Apply the function and providing values for the arguments. Here the html files are in
+# Apply the function and provide values for its arguments. Here the html files are in
 # vacancypages folder and we write the output to parsedvacancies folder.
 
 htmlfileparser(folder="vacancypages", writefolder="parsedvacancies")

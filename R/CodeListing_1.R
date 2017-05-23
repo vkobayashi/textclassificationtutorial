@@ -1,13 +1,13 @@
 #####################################################################################
-### Preparing Text: Parsing html and extracting the relevant text content         ###
+### Preparing Text: Parsing html and extracting the relevant text content.        ###
 ######################################                                            ###
 ### Description:                                                                  ###
-### This R script contains commands that extracts text from an HTML file.         ###
+### This R script contains commands that extract text from an HTML file.          ###
 ### The extracted text is written to a .txt file which is stored in the computer. ###
 #####################################################################################
 
-# Set option for display warning
-options(warn=-1)
+# Set option for displaying warnings.
+options(warn=-1) # Warnings are ignored.
 
 # This function accomplishes two things. 
 # (1) If a package is already installed then it loads the package.
@@ -30,6 +30,8 @@ if(file.exists("sample_nursing_vacancy.txt")) file.remove("sample_nursing_vacanc
 # web browser such as Chrome or Mozilla Firefox.
 fileName<-file.path(".","data","sample_nursing_vacancy.html")
 
+browseURL(fileName) # open in a browser
+
 # Read all the content of the file in "sample_nursing_vacancy.html"
 # and assigned it to a variable. Here the variable is named
 # htmlfile.
@@ -44,7 +46,7 @@ cat(htmlfile)
 # Replace the item list tag (e.g.<li> and </li>) with a newline
 # character encoded as "\n". This is done using the
 # gsub() function. This function accepts a text pattern as one of
-# its argument and replaces all text that match that pattern.
+# its arguments and replaces all text that match that pattern.
 # Here the text pattern is "</?[Ll][Ii]>" and it matches <LI>,
 # </LI>, <li>, and </li>. The pattern is also called a
 # "regular expression". The variable htmlfile now contains the

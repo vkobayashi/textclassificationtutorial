@@ -1,9 +1,10 @@
-##################################################################
-### Code Listing 8 - Term Similarity and Correlation
-#################
-### Using the constructed dimension from LSA and cosine similarity
-### to identify term similarity
-##################################################################
+############################################################################
+### Term Similarity and Correlation                                      ###
+######################################                                   ###
+### Description:                                                         ###
+### This R script contains commands that compute the cosine similarity   ###
+### among terms and correlations among document.                         ###
+############################################################################
 
 # Similarity among terms using cosine measure
 cosine_simil_terms<-cosine(t(projdocterms))
@@ -22,6 +23,9 @@ document_correlation<-cor(projdocterms)
 
 # Project the documents to the latent dimensions
 projdoc<-t(mytdm_mat_lsa) %*% lsaSpace$tk %*% solve(diag(lsaSpace$sk))
+# an alternative is just
+# projdoc <- lsaSpace$dk
+
 projdoc<-projdoc[rowSums(projdoc)!=0,]
 
 # See the new number of dimensions
