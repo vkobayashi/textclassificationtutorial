@@ -1,13 +1,13 @@
 ############################################################################
-### Text Transformation: Transform free text to Document by Term Matrix. ###
+### Text Transformation: Transform free text to Document-by-Term Matrix. ###
 ######################################                                   ###
 ### Description:                                                         ###
 ### This R script contains commands that transforms free text to         ###
-### Document by Term matrix. The matrix is suitable for the application  ###
-### analytical method.                                                   ###
+### Document-by-Term matrix. The matrix is suitable for the application  ###
+### analytical methods.                                                  ###
 ############################################################################
 
-# Loads reshape2 package which is a package for reshaping data.
+# Loads reshape2 package which is a package for data manipulation.
 # Loads ggplot2 package which is a package for creating graphics.
 require2("reshape2")
 require2("ggplot2")

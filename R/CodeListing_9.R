@@ -1,6 +1,12 @@
-##############################
-### Feature Selection
-##############################
+############################################################################
+### Feature Selection                                                    ###
+######################################                                   ###
+### Description:                                                         ###
+### This R script contains commands that perform supervised feature      ###
+### selection.                                                           ###
+############################################################################
+
+# Load the required library
 require2("FSelector")
 
 
@@ -11,19 +17,19 @@ labelsdtm<-labels[as.numeric(rownames(mydtm_mat))]
 mydtm_matwithLabels<-mydtm_mat
 mydtm_matwithLabels$taskOrNot<-ifelse(labelsdtm == "1", "task", "nontask")
 
-#Information Gain
-IG<-information.gain(taskOrNot~., data=mydtm_matwithLabels)
+# Information Gain
+IG <- information.gain(taskOrNot~., data=mydtm_matwithLabels)
 subset(IG, attr_importance>0)
 ##                attr_importance
 ## zusammenarbeit      0.01889206
 
-#Gain ratio
+# Gain ratio
 GR <- gain.ratio(taskOrNot~., data=mydtm_matwithLabels)
 subset(GR, attr_importance>0)
 ##                attr_importance
 ## zusammenarbeit       0.4471747
 
-#Symmetric Uncertainty
+# Symmetric Uncertainty
 SU<-symmetrical.uncertainty(taskOrNot~., data=mydtm_matwithLabels)
 subset(SU, attr_importance>0)
 ##                attr_importance

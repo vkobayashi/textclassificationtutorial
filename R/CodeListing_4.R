@@ -2,7 +2,7 @@
 ### Text Preprocessing: Apply further text textpreprocessing.             ###
 ######################################                                    ###
 ### Description:                                                          ###
-### This R script contains commands that extracts text from an HTML file. ###
+### This R script contains commands that extract text from an HTML file.  ###
 ### The extracted text is written to a .txt file which is stored in       ###
 ### the computer.                                                         ###
 #############################################################################
@@ -42,7 +42,7 @@ transformCorpus<-function(corpusname){
 
 mycorpus<-transformCorpus(mycorpus)
 
-for(j in 1:length(mycorpus)) {meta(mycorpus[[j]],"id");print(j);print(mycorpus[[j]]$content)}
+for(j in 1:length(mycorpus)) {meta(mycorpus[[j]],"id")}
 # Check the first document again and find out the effect of the applied transformations
 mycorpus[[6]]$content
 # it should dispaly "aktive mitarbeit und umsetzung der pflegekonzepte und der pflegestandards"

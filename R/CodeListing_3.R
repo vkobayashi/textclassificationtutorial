@@ -1,10 +1,10 @@
 #############################################################################
 ### Preprocessing Text: Apply sentence segmentation.                      ###
-### This is an important task for our study since the sentence is         ###
-### treated as the unit of analysis (i.e. document).                      ###
+### This is an important task for our study since a sentence is           ###
+### treated as a unit of analysis (i.e. document).                        ###
 ######################################                                    ###
 ### Description:                                                          ###
-### This R script contains commands that extract the individual sentences ###
+### This R script contains commands that extract the sentences            ###
 ### from the vacancies.                                                   ###
 #############################################################################
 
@@ -90,7 +90,7 @@ write(paste(k,sent_notab,sep="\t"), "./sentences_from_sample_vacancy/sentencelin
 sentence_segmentor<-function(folder="", writeFolder="", writeFile=""){
   dir<-file.path(".",folder)    # computer path to the folder containing the html files
   vacancytxtfiles<-list.files(dir) # list the files in the folder where the html files are stored
-  vacancytxtfiles<-vacancytxtfiles[grepl("*.txt", vacancytxtfiles)] # choose only the files with.html extension
+  vacancytxtfiles<-vacancytxtfiles[grepl("*.txt", vacancytxtfiles)] # choose only the files with .html extension
   if(dir.exists(writeFolder)) {unlink(writeFolder, recursive=TRUE)}
   dir.create(writeFolder)
   for(i in vacancytxtfiles){
