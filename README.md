@@ -1,4 +1,6 @@
-# Code repository for the paper **Text Classification for Organizational Researchers: A Tutorial** authored by V Kobayashi, S Mol, G Kismihók, H Berkers, and D den Hartog submitted to Organizational Research Methods [journal](http://journals.sagepub.com/home/orm)
+# Code repository for the paper **Text Classification for Organizational Researchers: A Tutorial** 
+authored by V Kobayashi, S Mol, G Kismihók, H Berkers, and D den Hartog
+submitted to Organizational Research Methods [journal](http://journals.sagepub.com/home/orm)
 
 
 Software requirements:
