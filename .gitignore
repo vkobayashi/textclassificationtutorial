@@ -1,3 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+parsed/**
+parsedvacancies/**
+sentences_from_vacancies/**
+sentences_from_sample_vacancy/**
