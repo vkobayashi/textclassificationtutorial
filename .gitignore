@@ -5,3 +5,5 @@ parsed/**
 parsedvacancies/**
 sentences_from_vacancies/**
 sentences_from_sample_vacancy/**
+packrat/lib*/
+packrat/src/
