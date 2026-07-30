@@ -1,0 +1,151 @@
+---
+title: "Getting Started with Text Classification"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with Text Classification}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Overview
+
+Text classification assigns documents to predefined categories. In
+organizational research, documents might be vacancy sentences, employee
+comments, reports, or interview excerpts. This tutorial develops a transparent
+workflow from raw HTML to predictions.
+
+```{r}
+library(textclasstutorial)
+```
+
+## Extract text from HTML
+
+The package includes the nursing-vacancy page used by the original tutorial.
+
+```{r}
+html_file <- system.file(
+  "extdata", "sample_nursing_vacancy.html",
+  package = "textclasstutorial"
+)
+vacancy_text <- extract_html_text(html_file)
+substr(vacancy_text, 1, 200)
+```
+
+To process a folder, use `extract_html_dir()`. The result keeps a document ID,
+the source path, and extracted text together.
+
+```{r, eval = FALSE}
+pages <- extract_html_dir("vacancypages")
+```
+
+CSS and XPath selection are available when `xml2` is installed:
+
+```{r, eval = FALSE}
+extract_html_text(html_file, selector = "div.content")
+extract_html_text(html_file, xpath = "//div[@class='content']")
+```
+
+## Segment and normalize
+
+The unit of analysis should follow the research question. Here, each sentence
+is treated as one document.
+
+```{r}
+sentences <- split_sentences(vacancy_text)
+head(sentences)
+```
+
+Preprocessing choices are analytical decisions, not housekeeping. Removing
+numbers may discard years of experience, and removing stopwords may discard
+meaningful negation. Make each choice explicit.
+
+```{r}
+german_stopwords <- c(
+  "der", "die", "das", "den", "dem", "des", "und", "oder", "mit",
+  "für", "von", "zu", "im", "in", "auf", "ein", "eine"
+)
+
+clean <- preprocess_text(
+  sentences,
+  lowercase = TRUE,
+  remove_punctuation = TRUE,
+  remove_numbers = TRUE,
+  stopwords = german_stopwords,
+  min_token_length = 2
+)
+clean <- clean[nzchar(clean)]
+head(clean)
+```
+
+## Create document features
+
+```{r}
+dtm <- document_term_matrix(
+  clean,
+  min_doc_freq = 2,
+  max_doc_prop = 0.95
+)
+dtm
+```
+
+Rows represent documents, columns represent terms, and cells contain counts.
+Use `binary = TRUE` when presence is more appropriate than frequency.
+
+TF-IDF increases the weight of terms that are frequent in a particular
+document but uncommon across the collection.
+
+```{r}
+weighted <- tf_idf(dtm)
+keywords <- extract_keywords(dtm, n = 3)
+head(keywords, 12)
+```
+
+## Explore similarity
+
+Cosine similarity compares the orientation of two feature vectors while
+reducing the influence of document length.
+
+```{r}
+similarity <- cosine_similarity(weighted)
+round(similarity[1:min(5, nrow(similarity)),
+                 1:min(5, ncol(similarity))], 2)
+```
+
+## Train a classifier
+
+For a compact illustration, use synthetic documents with known labels.
+
+```{r}
+training_text <- c(
+  "analyze data statistical model",
+  "build predictive model data",
+  "create dashboard analyze metrics",
+  "provide nursing care patient",
+  "support patient clinical care",
+  "coordinate nurse patient treatment"
+)
+training_labels <- c("data", "data", "data", "care", "care", "care")
+
+training_dtm <- document_term_matrix(training_text)
+model <- fit_naive_bayes(training_dtm, training_labels, laplace = 1)
+model
+
+predicted <- predict(model, training_dtm)
+classification_metrics(training_labels, predicted, positive = "data")
+```
+
+This training-set result demonstrates mechanics, not generalization. The next
+vignette shows out-of-sample evaluation.
+
+## Reproducible research checklist
+
+- Preserve IDs and labels through every transformation.
+- Define the unit of analysis before tokenization.
+- Fit vocabulary and feature transformations on training data only.
+- Prevent sentences from the same source document leaking across folds.
+- Report preprocessing, class balance, tuning, and all evaluation metrics.
+- Inspect errors and subgroup performance, not only aggregate accuracy.

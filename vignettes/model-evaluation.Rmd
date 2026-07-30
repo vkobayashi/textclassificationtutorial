@@ -1,0 +1,105 @@
+---
+title: "Evaluating a Text Classifier"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Evaluating a Text Classifier}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Why evaluation design matters
+
+Text models can appear accurate because related documents occur in both
+training and test data, preprocessing used the entire dataset, or accuracy
+hides poor minority-class performance. Evaluation must mirror the intended
+use of the classifier.
+
+```{r}
+library(textclasstutorial)
+
+text <- c(
+  "analyze customer data", "build statistical models",
+  "create predictive analytics", "report business metrics",
+  "provide patient care", "support clinical treatment",
+  "coordinate nursing care", "assist hospital patients",
+  "analyze experimental results", "develop data dashboard",
+  "monitor patient health", "coordinate clinical team"
+)
+label <- rep(c("data", "care"), each = 4)
+label <- c(label, "data", "data", "care", "care")
+```
+
+## Stratified folds
+
+Stratification distributes each class across folds. The smallest class must
+have at least `k` observations.
+
+```{r}
+folds <- stratified_folds(label, k = 3, seed = 2026)
+folds
+```
+
+For nested documents—sentences within vacancies, employees within teams, or
+posts within authors—split on the higher-level entity instead. Ordinary
+stratification does not prevent grouped leakage.
+
+## Cross-validation loop
+
+The vocabulary must be learned from the training documents. Test documents are
+then aligned to that training vocabulary by `predict.text_nb()`.
+
+```{r}
+fold_results <- lapply(folds, function(test_index) {
+  train_index <- setdiff(seq_along(text), test_index)
+
+  train_clean <- preprocess_text(text[train_index])
+  test_clean <- preprocess_text(text[test_index])
+
+  train_dtm <- document_term_matrix(train_clean)
+  test_dtm <- document_term_matrix(test_clean)
+
+  model <- fit_naive_bayes(train_dtm, label[train_index])
+  estimate <- predict(model, test_dtm)
+
+  classification_metrics(
+    truth = label[test_index],
+    estimate = estimate,
+    positive = "data"
+  )
+})
+
+results <- do.call(rbind, fold_results)
+results
+colMeans(results[c(
+  "accuracy", "balanced_accuracy", "precision", "recall", "f1"
+)], na.rm = TRUE)
+```
+
+## Interpret the metrics
+
+- **Precision** asks what proportion of predicted positive documents is truly
+  positive.
+- **Recall** asks what proportion of true positive documents was found.
+- **Specificity** is recall for the negative class.
+- **Balanced accuracy** averages recall and specificity.
+- **F1** is the harmonic mean of precision and recall.
+
+Choose metrics before examining results. In rare-category classification,
+ordinary accuracy can be high even when the classifier never detects the class
+of interest.
+
+## From tutorial to research
+
+For a substantive study, add:
+
+1. a held-out final test set;
+2. grouped or temporal resampling where the data structure requires it;
+3. training-fold-only tuning and feature selection;
+4. confidence intervals across appropriate sampling units;
+5. human review of false positives and false negatives;
+6. documentation of annotation quality and inter-rater agreement;
+7. fairness and drift checks for the deployment context.
