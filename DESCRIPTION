@@ -5,9 +5,7 @@ Authors@R: c(
     person("Vladimer", "Kobayashi", role = c("aut", "cre"),
            email = "vladimer.kobayashi@gmail.com"),
     person("Stefan", "Mol", role = "aut"),
-    person("Gabor", "Kismihok", role = "aut"),
-    person("Hannah", "Berkers", role = "aut"),
-    person("Deanne", "den Hartog", role = "aut")
+    person("Gabor", "Kismihok", role = "aut")
   )
 Description: Dependency-light tools and tutorials for teaching reproducible
     text classification. The package covers HTML text extraction, sentence

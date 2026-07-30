@@ -106,7 +106,7 @@ decode_html_entities <- function(x) {
 }
 
 normalize_text_whitespace <- function(x) {
-  x <- gsub("[\\t\\r ]+", " ", x)
+  x <- gsub("[\t\r ]+", " ", x)
   x <- gsub(" *\\n+ *", "\n", x)
   trimws(x)
 }
