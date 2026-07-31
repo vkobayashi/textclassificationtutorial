@@ -11,10 +11,11 @@ Description: Dependency-light tools and tutorials for teaching reproducible
     text classification. The package covers HTML text extraction, sentence
     segmentation, text preprocessing, document-term matrices, TF-IDF,
     keyword extraction, cosine similarity, stratified cross-validation,
-    classification metrics, and a multinomial Naive Bayes classifier. It
-    modernizes the code accompanying "Text Classification for Organizational
-    Researchers: A Tutorial" while retaining the original code listings.
-License: file LICENSE
+    classification metrics, and a multinomial Naive Bayes classifier. It 
+    modernizes the code accompanying 
+    Kobayashi, V. B., Berkers, H. A., Mol, S. T. Kismihok, G., and Den Hartog, D. N. (2017) <doi:10.1177/1094428117719322>
+    while retaining the original code listings.
+License: Apache License (>= 2)
 URL: https://github.com/vkobayashi/textclassificationtutorial
 BugReports: https://github.com/vkobayashi/textclassificationtutorial/issues
 Depends:

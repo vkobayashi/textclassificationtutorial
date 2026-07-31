@@ -113,7 +113,7 @@ extract_keywords <- function(x, n = 1L, already_tfidf = FALSE) {
     values <- weights[i, ]
     order_index <- order(values, decreasing = TRUE)
     order_index <- order_index[values[order_index] > 0]
-    order_index <- head(order_index, n)
+    order_index <- utils::head(order_index, n)
     if (!length(order_index)) {
       return(data.frame(
         document = character(), rank = integer(), term = character(),

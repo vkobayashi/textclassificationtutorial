@@ -39,7 +39,7 @@ To process a folder, use `extract_html_dir()`. The result keeps a document ID,
 the source path, and extracted text together.
 
 ```{r, eval = FALSE}
-pages <- extract_html_dir("vacancypages")
+pages <- extract_html_dir("inst/extdata/vacancypages")
 ```
 
 CSS and XPath selection are available when `xml2` is installed:
