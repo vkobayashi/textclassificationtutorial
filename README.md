@@ -60,8 +60,8 @@ classification_metrics(labels, predictions, positive = "data")
 Read the tutorials with:
 
 ```r
-vignette("getting-started", package = "textclasstutorial")
-vignette("model-evaluation", package = "textclasstutorial")
+vignette("getting-started", package = "textclassificationtutorial")
+vignette("model-evaluation", package = "textclassificationtutorial")
 ```
 
 ## Design principles
