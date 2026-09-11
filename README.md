@@ -1,6 +1,6 @@
-# textclasstutorial
+# textclassificationtutorial
 
-`textclasstutorial` is an installable R package for learning and teaching
+`textclassificationtutorial` is an installable R package for learning and teaching
 reproducible text classification. It modernizes the code accompanying:
 
 > Kobayashi, V. B., Mol, S. T., Berkers, H. A., Kismihók, G., & Den Hartog,
@@ -20,7 +20,7 @@ remotes::install_github("vkobayashi/textclassificationtutorial")
 ## Quick start
 
 ```r
-library(textclasstutorial)
+library(textclassificationtutorial)
 
 documents <- c(
   "Analyze customer data and build statistical models.",
